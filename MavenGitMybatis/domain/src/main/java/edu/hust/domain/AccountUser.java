@@ -24,4 +24,13 @@ public class AccountUser extends Account {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "AccountUser{" +
+                super.toString() +
+                "username='" + username + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

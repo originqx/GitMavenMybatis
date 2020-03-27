@@ -11,10 +11,12 @@ import java.util.List;
  */
 public interface IAccountDao {
 
+//    List<AccountUser> findAll();
+
     List<Account> findAll();
 
 
-    List<Account> findById( Integer id);
+//    List<AccountUser> findById( Integer id);
 
-
+    
 }

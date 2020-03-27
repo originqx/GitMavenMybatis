@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.hust.dao.IRoleDao">
+
+    <resultMap id="roleMap" type="Role">
+        <id column="id" property="id"/>
+        <result column="role_name" property="role_name"/>
+        <result column="role_desc" property="role_desc"/>
+        <collection property="users" ofType="User">
+            <id column="uid" property="id"/>
+            <result column="username" property="username"/>
+            <result column="sex" property="sex"/>
+            <result column="birthday" property="brithday"/>
+            <result column="address" property="address"/>
+        </collection>
+    </resultMap>
+
+
+
+    <select id="findAll" resultMap="roleMap">
+        select role.*,user.id uid,user.username username,user.sex sex,user.birthday birthday, user.address address from role
+        left outer join user_role ur on role.id=ur.rid
+        left outer join user  on user.id = ur.uid
+    </select>
+</mapper>

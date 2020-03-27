@@ -1,3 +1,46 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties/>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.hust.dao.IUserDao">
+
+    <resultMap id="userMap" type="User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="birthday" property="brithday"/>
+        <result column="sex" property="sex"/>
+        <result column="address" property="address"/>
+        <collection property="accounts" ofType="Account">
+            <id column="aid" property="id"/>
+            <result column="uid" property="uid"/>
+            <result column="money" property="money"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="userRoleMap" type="User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="birthday" property="brithday"/>
+        <result column="sex" property="sex"/>
+        <result column="address" property="address"/>
+        <collection property="roles" ofType="Role">
+            <id column="rid" property="id"/>
+            <result column="rname" property="role_name"/>
+            <result column="rdesc" property="role_desc"/>
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultMap="userMap">
+        select user.*,account.id aid,uid,money from user left join account on user.id = account.uid
+</select>
+    <select id="findAllRole" resultMap="userRoleMap">
+        select u.*,r.id rid,r.role_name rname, r.role_desc rdesc from user u
+        left outer join user_role ur on ur.uid=u.id
+        left outer join role r on ur.rid = r.id
+    </select>
+    <select id="findById"  parameterType="integer" resultMap="userRoleMap">
+          select u.*,r.id rid,r.role_name rname, r.role_desc rdesc from user u
+        left outer join user_role ur on ur.uid=u.id
+        left outer join role r on ur.rid = r.id where u.id=#{id}
+    </select>
+</mapper>

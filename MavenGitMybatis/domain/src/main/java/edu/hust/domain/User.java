@@ -10,13 +10,26 @@ import java.util.List;
  * @Version 1.0
  */
 public class User implements Serializable {
-    Integer userid;
+    Integer id;
     String username;
     Date brithday;
     String sex;
     String address;
 
     List<Account> accounts;
+    List<Role> roles;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public List<Account> getAccounts() {
         return accounts;
@@ -26,12 +39,8 @@ public class User implements Serializable {
         this.accounts = accounts;
     }
 
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public int getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -69,12 +78,11 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "userid=" + userid +
+                "id=" + id +
                 ", username='" + username + '\'' +
                 ", brithday=" + brithday +
                 ", sex='" + sex + '\'' +
                 ", address='" + address + '\'' +
-                ", accounts=" + accounts +
                 '}';
     }
 }

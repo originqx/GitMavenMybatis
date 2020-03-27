@@ -14,7 +14,11 @@ public interface IUserDao {
 
     List<User> findAll();
 
-    User findById();
+    //
+//    User findById();
+//
+//    List<User> findByName();
+    List<User> findAllRole();
 
-    List<User> findByName();
+    User findById(Integer id);
 }

@@ -3,12 +3,25 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.hust.dao.IAccountDao">
+    <!--<resultMap id="accountMap" type="Account">-->
+        <!--<id column="id" property="id"></id>-->
+        <!--<result column="uid" property="uid"></result>-->
+        <!--<result column="money" property="money"></result>-->
+        <!--<association property="user" column="id" javaType="User">-->
+            <!--<id column="id" property="userid"/>-->
+            <!--<result column="username" property="username"/>-->
+            <!--<result column="birthday" property="brithday"/>-->
+            <!--<result column="sex" property="sex"/>-->
+            <!--<result column="address" property="address"/>-->
+        <!--</association>-->
+    <!--</resultMap>-->
+
     <resultMap id="accountMap" type="Account">
-        <id column="id" property="id"></id>
-        <result column="uid" property="uid"></result>
-        <result column="money" property="money"></result>
-        <association property="user" column="id" javaType="User">
-            <id column="id" property="userid"/>
+        <id column="id" property="id"/>
+        <result column="uid" property="uid"/>
+        <result column="money" property="money"/>
+        <association property="user"  column="uid" javaType="User">
+            <id column="userid" property="id"/>
             <result column="username" property="username"/>
             <result column="birthday" property="brithday"/>
             <result column="sex" property="sex"/>
@@ -16,12 +29,16 @@
         </association>
     </resultMap>
 
+    <!--<select id="findAll" resultType="AccountUser">-->
+        <!--select account.*, user.username username, user.address address from account left join user on account.uid = user.id-->
+    <!--</select>-->
+
 
     <select id="findAll" resultMap="accountMap">
-        select account.*,user.id user.username name, user.address address from account left join user on account.uid = user.id
+        select account.*,ur.id userid, ur.username username,ur.address address,ur.birthday birthday,ur.sex sex from user ur,account where ur.id = account.uid
     </select>
-    <select id="findById" resultMap="accountMap">
-        select * from account where id = #{};
-    </select>
+    <!--<select id="findById" resultMap="accountMap">-->
+        <!--select * from account where id = #{};-->
+    <!--</select>-->
 
 </mapper>
